@@ -1,0 +1,28 @@
+name: x402-insee-fr
+
+services:
+  insee:
+    build: .
+    container_name: x402-insee-fr
+    restart: unless-stopped
+    ports:
+      - "3039:3039"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-insee-fr.rule=Host(`x402-insee-fr.suretat.com`)"
+      - "traefik.http.routers.x402-insee-fr.entrypoints=websecure"
+      - "traefik.http.routers.x402-insee-fr.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-insee-fr.loadbalancer.server.port=3039"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

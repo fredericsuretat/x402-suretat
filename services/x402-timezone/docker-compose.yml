@@ -1,0 +1,28 @@
+name: x402-timezone
+
+services:
+  timezone:
+    build: .
+    container_name: x402-timezone
+    restart: unless-stopped
+    ports:
+      - "3056:3056"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-timezone.rule=Host(`x402-timezone.suretat.com`)"
+      - "traefik.http.routers.x402-timezone.entrypoints=websecure"
+      - "traefik.http.routers.x402-timezone.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-timezone.loadbalancer.server.port=3056"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

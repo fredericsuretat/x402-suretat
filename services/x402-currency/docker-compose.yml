@@ -1,0 +1,28 @@
+name: x402-currency
+
+services:
+  currency:
+    build: .
+    container_name: x402-currency
+    restart: unless-stopped
+    ports:
+      - "3051:3051"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-currency.rule=Host(`x402-currency.suretat.com`)"
+      - "traefik.http.routers.x402-currency.entrypoints=websecure"
+      - "traefik.http.routers.x402-currency.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-currency.loadbalancer.server.port=3051"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

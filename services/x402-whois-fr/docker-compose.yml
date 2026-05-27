@@ -1,0 +1,28 @@
+name: x402-whois-fr
+
+services:
+  whois:
+    build: .
+    container_name: x402-whois-fr
+    restart: unless-stopped
+    ports:
+      - "3038:3038"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-whois-fr.rule=Host(`x402-whois-fr.suretat.com`)"
+      - "traefik.http.routers.x402-whois-fr.entrypoints=websecure"
+      - "traefik.http.routers.x402-whois-fr.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-whois-fr.loadbalancer.server.port=3038"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

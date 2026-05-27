@@ -1,0 +1,35 @@
+name: x402-scraper-api
+
+services:
+  scraper:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: x402-scraper-api
+    restart: unless-stopped
+    ports:
+      - "3034:3034"
+    environment:
+      - PORT=3034
+      - DATA_FILE=/app/data/stats.json
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-scraper.rule=Host(`x402-scraper.suretat.com`)"
+      - "traefik.http.routers.x402-scraper.entrypoints=websecure"
+      - "traefik.http.routers.x402-scraper.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-scraper.loadbalancer.server.port=3034"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

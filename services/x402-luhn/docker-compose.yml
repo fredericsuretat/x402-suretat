@@ -1,0 +1,21 @@
+services:
+  x402-luhn:
+    build: .
+    image: x402-luhn:latest
+    container_name: x402-luhn
+    restart: unless-stopped
+    ports:
+      - "3066:3066"
+    env_file: .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-luhn.rule=Host(`x402-luhn.suretat.com`)"
+      - "traefik.http.routers.x402-luhn.entrypoints=websecure"
+      - "traefik.http.routers.x402-luhn.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-luhn.loadbalancer.server.port=3066"
+    networks:
+      - traefik-net
+
+networks:
+  traefik-net:
+    external: true

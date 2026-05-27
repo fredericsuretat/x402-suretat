@@ -1,0 +1,28 @@
+name: x402-cron
+
+services:
+  cron:
+    build: .
+    container_name: x402-cron
+    restart: unless-stopped
+    ports:
+      - "3057:3057"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-cron.rule=Host(`x402-cron.suretat.com`)"
+      - "traefik.http.routers.x402-cron.entrypoints=websecure"
+      - "traefik.http.routers.x402-cron.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-cron.loadbalancer.server.port=3057"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

@@ -1,0 +1,28 @@
+name: x402-subnet
+
+services:
+  subnet:
+    build: .
+    container_name: x402-subnet
+    restart: unless-stopped
+    ports:
+      - "3053:3053"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-subnet.rule=Host(`x402-subnet.suretat.com`)"
+      - "traefik.http.routers.x402-subnet.entrypoints=websecure"
+      - "traefik.http.routers.x402-subnet.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-subnet.loadbalancer.server.port=3053"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

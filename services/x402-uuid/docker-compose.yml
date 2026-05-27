@@ -1,0 +1,21 @@
+services:
+  x402-uuid:
+    build: .
+    image: x402-uuid:latest
+    container_name: x402-uuid
+    restart: unless-stopped
+    ports:
+      - "3067:3067"
+    env_file: .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-uuid.rule=Host(`x402-uuid.suretat.com`)"
+      - "traefik.http.routers.x402-uuid.entrypoints=websecure"
+      - "traefik.http.routers.x402-uuid.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-uuid.loadbalancer.server.port=3067"
+    networks:
+      - traefik-net
+
+networks:
+  traefik-net:
+    external: true

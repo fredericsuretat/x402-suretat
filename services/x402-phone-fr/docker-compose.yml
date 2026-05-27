@@ -1,0 +1,28 @@
+name: x402-phone-fr
+
+services:
+  phone:
+    build: .
+    container_name: x402-phone-fr
+    restart: unless-stopped
+    ports:
+      - "3048:3048"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-phone-fr.rule=Host(`x402-phone.suretat.com`)"
+      - "traefik.http.routers.x402-phone-fr.entrypoints=websecure"
+      - "traefik.http.routers.x402-phone-fr.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-phone-fr.loadbalancer.server.port=3048"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

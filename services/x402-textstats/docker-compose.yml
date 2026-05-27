@@ -1,0 +1,28 @@
+name: x402-textstats
+
+services:
+  textstats:
+    build: .
+    container_name: x402-textstats
+    restart: unless-stopped
+    ports:
+      - "3055:3055"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-textstats.rule=Host(`x402-textstats.suretat.com`)"
+      - "traefik.http.routers.x402-textstats.entrypoints=websecure"
+      - "traefik.http.routers.x402-textstats.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-textstats.loadbalancer.server.port=3055"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

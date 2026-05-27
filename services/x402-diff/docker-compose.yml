@@ -1,0 +1,28 @@
+name: x402-diff
+
+services:
+  diff:
+    build: .
+    container_name: x402-diff
+    restart: unless-stopped
+    ports:
+      - "3072:3072"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-diff.rule=Host(`x402-diff.suretat.com`)"
+      - "traefik.http.routers.x402-diff.entrypoints=websecure"
+      - "traefik.http.routers.x402-diff.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-diff.loadbalancer.server.port=3072"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

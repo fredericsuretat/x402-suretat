@@ -1,0 +1,21 @@
+services:
+  x402-base64:
+    build: .
+    image: x402-base64:latest
+    container_name: x402-base64
+    restart: unless-stopped
+    ports:
+      - "3065:3065"
+    env_file: .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-base64.rule=Host(`x402-base64.suretat.com`)"
+      - "traefik.http.routers.x402-base64.entrypoints=websecure"
+      - "traefik.http.routers.x402-base64.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-base64.loadbalancer.server.port=3065"
+    networks:
+      - traefik-net
+
+networks:
+  traefik-net:
+    external: true

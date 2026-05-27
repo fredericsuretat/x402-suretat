@@ -1,0 +1,35 @@
+name: x402-siret
+
+services:
+  siret:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: x402-siret
+    restart: unless-stopped
+    ports:
+      - "3031:3031"
+    environment:
+      - PORT=3031
+      - DATA_FILE=/app/data/stats.json
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-siret.rule=Host(`x402-siret.suretat.com`)"
+      - "traefik.http.routers.x402-siret.entrypoints=websecure"
+      - "traefik.http.routers.x402-siret.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-siret.loadbalancer.server.port=3031"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

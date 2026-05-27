@@ -1,0 +1,16 @@
+{
+  "name": "x402-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for x402 API services (suretat.com)",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@x402/fetch": "latest",
+    "@x402/evm": "latest",
+    "viem": "^2.0.0"
+  }
+}

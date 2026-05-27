@@ -1,0 +1,28 @@
+name: x402-rss
+
+services:
+  rss:
+    build: .
+    container_name: x402-rss
+    restart: unless-stopped
+    ports:
+      - "3058:3058"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-rss.rule=Host(`x402-rss.suretat.com`)"
+      - "traefik.http.routers.x402-rss.entrypoints=websecure"
+      - "traefik.http.routers.x402-rss.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-rss.loadbalancer.server.port=3058"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

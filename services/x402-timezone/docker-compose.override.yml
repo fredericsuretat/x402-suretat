@@ -1,0 +1,5 @@
+networks:
+  traefik:
+    external: false
+  proxy:
+    external: false

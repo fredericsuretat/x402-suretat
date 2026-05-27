@@ -1,0 +1,28 @@
+name: x402-screenshot
+
+services:
+  screenshot:
+    build: .
+    container_name: x402-screenshot
+    restart: unless-stopped
+    ports:
+      - "3075:3075"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-screenshot.rule=Host(`x402-screenshot.suretat.com`)"
+      - "traefik.http.routers.x402-screenshot.entrypoints=websecure"
+      - "traefik.http.routers.x402-screenshot.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-screenshot.loadbalancer.server.port=3075"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

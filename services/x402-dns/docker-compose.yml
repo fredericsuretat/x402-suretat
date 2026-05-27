@@ -1,0 +1,28 @@
+name: x402-dns
+
+services:
+  dns:
+    build: .
+    container_name: x402-dns
+    restart: unless-stopped
+    ports:
+      - "3071:3071"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-dns.rule=Host(`x402-dns.suretat.com`)"
+      - "traefik.http.routers.x402-dns.entrypoints=websecure"
+      - "traefik.http.routers.x402-dns.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-dns.loadbalancer.server.port=3071"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

@@ -1,0 +1,28 @@
+name: x402-colorpalette
+
+services:
+  colorpalette:
+    build: .
+    container_name: x402-colorpalette
+    restart: unless-stopped
+    ports:
+      - "3060:3060"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-colorpalette.rule=Host(`x402-colorpalette.suretat.com`)"
+      - "traefik.http.routers.x402-colorpalette.entrypoints=websecure"
+      - "traefik.http.routers.x402-colorpalette.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-colorpalette.loadbalancer.server.port=3060"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

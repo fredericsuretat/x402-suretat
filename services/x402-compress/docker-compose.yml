@@ -1,0 +1,28 @@
+name: x402-compress
+
+services:
+  compress:
+    build: .
+    container_name: x402-compress
+    restart: unless-stopped
+    ports:
+      - "3077:3077"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-compress.rule=Host(`x402-compress.suretat.com`)"
+      - "traefik.http.routers.x402-compress.entrypoints=websecure"
+      - "traefik.http.routers.x402-compress.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-compress.loadbalancer.server.port=3077"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

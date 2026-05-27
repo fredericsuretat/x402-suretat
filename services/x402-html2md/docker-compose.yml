@@ -1,0 +1,28 @@
+name: x402-html2md
+
+services:
+  html2md:
+    build: .
+    container_name: x402-html2md
+    restart: unless-stopped
+    ports:
+      - "3070:3070"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-html2md.rule=Host(`x402-html2md.suretat.com`)"
+      - "traefik.http.routers.x402-html2md.entrypoints=websecure"
+      - "traefik.http.routers.x402-html2md.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-html2md.loadbalancer.server.port=3070"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

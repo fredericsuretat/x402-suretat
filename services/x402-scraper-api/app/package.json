@@ -1,0 +1,14 @@
+{
+  "name": "x402-scraper-api",
+  "version": "1.0.0",
+  "description": "x402 micropayment service — Web scraping API (title, OG, JSON-LD, CSS selectors)",
+  "main": "server.js",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "cheerio": "^1.0.0",
+    "@coinbase/cdp-sdk": "^1.50.0"
+  },
+  "scripts": { "start": "node server.js" }
+}

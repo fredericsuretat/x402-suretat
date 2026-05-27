@@ -1,0 +1,28 @@
+name: x402-fakedata
+
+services:
+  fakedata:
+    build: .
+    container_name: x402-fakedata-fr
+    restart: unless-stopped
+    ports:
+      - "3045:3045"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-fakedata.rule=Host(`x402-fakedata.suretat.com`)"
+      - "traefik.http.routers.x402-fakedata.entrypoints=websecure"
+      - "traefik.http.routers.x402-fakedata.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-fakedata.loadbalancer.server.port=3045"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

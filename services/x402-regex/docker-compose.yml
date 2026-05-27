@@ -1,0 +1,28 @@
+name: x402-regex
+
+services:
+  regex:
+    build: .
+    container_name: x402-regex
+    restart: unless-stopped
+    ports:
+      - "3059:3059"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-regex.rule=Host(`x402-regex.suretat.com`)"
+      - "traefik.http.routers.x402-regex.entrypoints=websecure"
+      - "traefik.http.routers.x402-regex.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-regex.loadbalancer.server.port=3059"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

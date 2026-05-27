@@ -1,0 +1,30 @@
+name: x402-adresses
+
+services:
+  adresses:
+    build: .
+    container_name: x402-adresses
+    restart: unless-stopped
+    ports:
+      - "3033:3033"
+    environment:
+      - PRICE_USDC=0.001
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-adresses.rule=Host(`x402-adresses.suretat.com`)"
+      - "traefik.http.routers.x402-adresses.entrypoints=websecure"
+      - "traefik.http.routers.x402-adresses.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-adresses.loadbalancer.server.port=3033"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

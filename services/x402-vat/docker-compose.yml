@@ -1,0 +1,28 @@
+name: x402-vat-fr
+
+services:
+  vat:
+    build: .
+    container_name: x402-vat-fr
+    restart: unless-stopped
+    ports:
+      - "3061:3061"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-vat-fr.rule=Host(`x402-vat.suretat.com`)"
+      - "traefik.http.routers.x402-vat-fr.entrypoints=websecure"
+      - "traefik.http.routers.x402-vat-fr.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-vat-fr.loadbalancer.server.port=3061"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

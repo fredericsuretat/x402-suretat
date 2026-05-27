@@ -1,0 +1,28 @@
+name: x402-xml2json
+
+services:
+  xml2json:
+    build: .
+    container_name: x402-xml2json
+    restart: unless-stopped
+    ports:
+      - "3074:3074"
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-xml2json.rule=Host(`x402-xml2json.suretat.com`)"
+      - "traefik.http.routers.x402-xml2json.entrypoints=websecure"
+      - "traefik.http.routers.x402-xml2json.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-xml2json.loadbalancer.server.port=3074"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  proxy:
+    external: true
+    name: proxy

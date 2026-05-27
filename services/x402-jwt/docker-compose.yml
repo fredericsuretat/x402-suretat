@@ -1,0 +1,21 @@
+services:
+  x402-jwt:
+    build: .
+    image: x402-jwt:latest
+    container_name: x402-jwt
+    restart: unless-stopped
+    ports:
+      - "3062:3062"
+    env_file: .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-jwt.rule=Host(`x402-jwt.suretat.com`)"
+      - "traefik.http.routers.x402-jwt.entrypoints=websecure"
+      - "traefik.http.routers.x402-jwt.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-jwt.loadbalancer.server.port=3062"
+    networks:
+      - traefik-net
+
+networks:
+  traefik-net:
+    external: true

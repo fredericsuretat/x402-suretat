@@ -1,0 +1,21 @@
+services:
+  x402-units:
+    build: .
+    image: x402-units:latest
+    container_name: x402-units
+    restart: unless-stopped
+    ports:
+      - "3064:3064"
+    env_file: .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.x402-units.rule=Host(`x402-units.suretat.com`)"
+      - "traefik.http.routers.x402-units.entrypoints=websecure"
+      - "traefik.http.routers.x402-units.tls.certresolver=letsencrypt"
+      - "traefik.http.services.x402-units.loadbalancer.server.port=3064"
+    networks:
+      - traefik-net
+
+networks:
+  traefik-net:
+    external: true
