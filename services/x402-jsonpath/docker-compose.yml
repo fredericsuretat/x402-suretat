@@ -1,0 +1,16 @@
+services:
+  x402-jsonpath:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3095:3095"
+    environment:
+      - PRICE_ATOMIC=500
+      - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+      - NETWORK=base
+      - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3095/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
