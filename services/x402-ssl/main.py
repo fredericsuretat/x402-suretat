@@ -6,21 +6,49 @@ import ssl
 import time
 from datetime import datetime, timezone
 
+import httpx
 import uvicorn
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
+load_dotenv()
+
 log = logging.getLogger("x402-ssl")
 
-PRICE_ATOMIC  = os.getenv("PRICE_ATOMIC", "500")
-PAY_TO        = os.getenv("PAY_TO", "0x6458941857a70C6cA18c440a316035A21901A12b")
-NETWORK       = os.getenv("NETWORK", "base")
-ASSET_ADDRESS = os.getenv("ASSET_ADDRESS", "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913")
+PRICE_ATOMIC    = os.getenv("PRICE_ATOMIC", "500")
+PAY_TO          = os.getenv("PAY_TO", "0x6458941857a70C6cA18c440a316035A21901A12b")
+NETWORK         = os.getenv("NETWORK", "base")
+ASSET_ADDRESS   = os.getenv("ASSET_ADDRESS", "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913")
+FACILITATOR_URL = os.getenv("FACILITATOR_URL", "https://www.x402.org/facilitator")
 
 stats = {"total_requests": 0, "total_paid": 0, "revenue_usdc": 0.0, "start_time": time.time()}
+
+
+async def _verify_and_settle(payment_header: str, resource_url: str) -> bool:
+    requirements = [{
+        "scheme": "exact", "network": NETWORK,
+        "maxAmountRequired": PRICE_ATOMIC,
+        "resource": resource_url,
+        "description": "SSL certificate info — expiry, issuer, SANs, TLS version",
+        "mimeType": "application/json",
+        "payTo": PAY_TO, "maxTimeoutSeconds": 300,
+        "asset": ASSET_ADDRESS,
+        "extra": {"name": "USDC", "version": "2"},
+    }]
+    payload = {"x402Version": 1, "paymentHeader": payment_header, "paymentRequirements": requirements}
+    try:
+        async with httpx.AsyncClient(timeout=10.0, follow_redirects=True) as client:
+            v = await client.post(f"{FACILITATOR_URL}/verify", json=payload)
+            if not v.json().get("isValid", False):
+                return False
+            s = await client.post(f"{FACILITATOR_URL}/settle", json=payload)
+            return s.status_code == 200
+    except Exception:
+        return False
 
 app = FastAPI(title="x402 SSL Certificate Checker", version="1.0.0")
 
@@ -56,6 +84,7 @@ def get_stats():
 async def x402_middleware(request: Request, call_next):
     if request.url.path == "/check" and request.method == "POST":
         auth = request.headers.get("X-PAYMENT") or request.headers.get("x-payment")
+        resource_url = "https://" + request.headers.get("host", "") + "/check"
         if not auth:
             return JSONResponse(
                 status_code=402,
@@ -66,7 +95,7 @@ async def x402_middleware(request: Request, call_next):
                         "scheme": "exact",
                         "network": NETWORK,
                         "maxAmountRequired": PRICE_ATOMIC,
-                        "resource": "https://" + request.headers.get("host", "") + "/check",
+                        "resource": resource_url,
                         "description": "SSL certificate info — expiry, issuer, SANs, TLS version",
                         "mimeType": "application/json",
                         "payTo": PAY_TO,
@@ -76,6 +105,12 @@ async def x402_middleware(request: Request, call_next):
                     }],
                 },
                 headers={"Access-Control-Allow-Origin": "*", "Cache-Control": "no-store", "Access-Control-Expose-Headers": "X-PAYMENT-RESPONSE"},
+            )
+        if not await _verify_and_settle(auth, resource_url):
+            return JSONResponse(
+                status_code=402,
+                content={"x402Version": 1, "error": "Paiement invalide ou expiré"},
+                headers={"Access-Control-Allow-Origin": "*", "Cache-Control": "no-store"},
             )
     return await call_next(request)
 
