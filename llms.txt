@@ -1,9 +1,11 @@
 # x402-suretat — Pay-per-use API microservices
 
-> 47 developer utility APIs using the x402 protocol. Pay in USDC on Base mainnet. No API keys, no signup, no rate limits.
+> 38+ utility APIs using the x402 protocol. Pay in USDC on Base mainnet. No API keys, no signup, no rate limits. AI agents can pay autonomously.
 
-Source code: https://github.com/fredericsuretat/x402-suretat
-All live at: https://x402-<name>.suretat.com
+**Live catalog with real-time status:** https://frederic.suretat.com/llms.txt
+**OpenAI plugin manifest:** https://frederic.suretat.com/.well-known/ai-plugin.json
+**OpenAPI spec:** https://frederic.suretat.com/.well-known/openapi.json
+**Source code:** https://github.com/fredericsuretat/x402-suretat
 
 ## How to use
 
@@ -15,72 +17,96 @@ All live at: https://x402-<name>.suretat.com
 
 Payment: USDC on Base mainnet. Wallet: `0x6458941857a70C6cA18c440a316035A21901A12b`
 
-## Service catalogue
+Each service exposes: `POST /<endpoint>` (paid), `GET /health`, `GET /stats`, `GET /docs`, `GET /.well-known/x402.json`
 
-Each service: `POST /<endpoint>` (paid), `GET /health`, `GET /stats`, `GET /docs`, `GET /.well-known/x402.json`
+## Deployed Services (38 live)
 
-### French Data Services
-- https://x402-adresses.suretat.com — Address validation & geocoding (adresse.data.gouv.fr). POST /validate. 0.001 USDC
+### French Data & Business
 - https://x402-siret.suretat.com — SIRET/SIREN company lookup (INSEE). POST /lookup. 0.002 USDC
+- https://x402-adresses.suretat.com — Address validation & geocoding (BAN). POST /validate. 0.001 USDC
 - https://x402-iban.suretat.com — IBAN validation & BIC lookup. POST /validate. 0.0005 USDC
-- https://x402-geocoder-fr.suretat.com — French geocoding with commune/département. POST /geocode. 0.001 USDC
-- https://x402-email-validator.suretat.com — Email validation with DNS MX check & disposable detection. POST /validate. 0.001 USDC
+- https://x402-geocoder-fr.suretat.com — French geocoding (commune, département, GPS). POST /geocode. 0.001 USDC
+- https://x402-email-validator.suretat.com — Email validation with DNS MX & disposable detection. POST /validate. 0.001 USDC
 - https://x402-phone-fr.suretat.com — French phone validation (E.164, carrier, region). POST /validate. 0.0005 USDC
-- https://x402-insee-fr.suretat.com — INSEE commune & département statistics. POST /commune, POST /departement. 0.002 USDC
-- https://x402-vat-fr.suretat.com — French VAT calculation & invoice breakdown. POST /calculate, POST /invoice. 0.0005 USDC
-- https://x402-feries.suretat.com — French public holidays all 11 zones. POST /feries, POST /jours-ouvres. 0.0005 USDC
+- https://x402-insee-fr.suretat.com — INSEE commune & département statistics. POST /commune. 0.002 USDC
+- https://x402-vat-fr.suretat.com — French VAT calculation & invoice breakdown. POST /calculate. 0.0005 USDC
+- https://x402-feries.suretat.com — French public holidays (all 11 zones). POST /feries. 0.0005 USDC
 - https://x402-fakedata-fr.suretat.com — French synthetic data (persons, companies, IBAN). POST /generate. 0.001 USDC
 - https://x402-translate-fr.suretat.com — Translation via DeepL (30 languages, 5000 chars). POST /translate. 0.001 USDC
 - https://x402-whois-fr.suretat.com — WHOIS for .fr & generic domains. POST /lookup. 0.001 USDC
 - https://x402-ipgeo.suretat.com — IP geolocation (country, city, ISP, coordinates). POST /geolocate. 0.001 USDC
 
-### Encoding & Crypto
+### Encoding, Crypto & Security
 - https://x402-hash.suretat.com — MD5/SHA-1/SHA-256/SHA-512/SHA3/BLAKE2b. POST /hash. 0.0005 USDC
-- https://x402-base64.suretat.com — Base64/Base64url/Base32/Base16/URL encode+decode. POST /encode, POST /decode. 0.0005 USDC
+- https://x402-base64.suretat.com — Base64/Base64url/Base32/Base16 encode+decode. POST /encode. 0.0005 USDC
 - https://x402-uuid.suretat.com — UUID v1/v4/v5/v7 generation (up to 100/call). POST /generate. 0.0005 USDC
-- https://x402-jwt.suretat.com — JWT decode/verify (HMAC, RSA, ECDSA). POST /decode, POST /verify. 0.0005 USDC
-- https://x402-password.suretat.com — Password generation & zxcvbn strength scoring. POST /generate, POST /check. 0.0005 USDC
-- https://x402-luhn.suretat.com — Luhn checksum validation (credit cards, IMEI). POST /validate. 0.0005 USDC
+- https://x402-jwt.suretat.com — JWT decode/verify (HMAC, RSA, ECDSA). POST /decode. 0.0005 USDC
+- https://x402-password.suretat.com — Password generation & zxcvbn strength scoring. POST /generate. 0.0005 USDC
+- https://x402-luhn.suretat.com — Luhn checksum (credit cards, IMEI). POST /validate. 0.0005 USDC
 
-### Text & Data Processing
+### Text & Data
 - https://x402-markdown.suretat.com — Markdown → HTML (GFM). POST /render. 0.0005 USDC
-- https://x402-regex.suretat.com — Regex test/extract/replace/split. POST /test, POST /extract. 0.0005 USDC
+- https://x402-regex.suretat.com — Regex test/extract/replace/split. POST /test. 0.0005 USDC
 - https://x402-textstats.suretat.com — Readability scores (Flesch-Kincaid, Gunning Fog). POST /analyze. 0.0005 USDC
 - https://x402-jsonschema.suretat.com — JSON Schema validation (Draft-07/2020-12). POST /validate. 0.0005 USDC
 - https://x402-rss.suretat.com — RSS 2.0/1.0 + Atom feed parsing. POST /parse. 0.001 USDC
 - https://x402-urlmeta.suretat.com — URL metadata: OG/Twitter Card/JSON-LD. POST /extract. 0.001 USDC
-- https://x402-num2words.suretat.com — Number → words in 13 languages. POST /convert. 0.0005 USDC
-- https://x402-html2md.suretat.com — URL/HTML → clean Markdown (Readability). POST /convert. 0.0005 USDC
-- https://x402-diff.suretat.com — Text diff: unified/HTML/ndiff. POST /diff. 0.0005 USDC
-- https://x402-csv2json.suretat.com — CSV ↔ JSON/NDJSON. POST /convert. 0.0005 USDC
-- https://x402-xml2json.suretat.com — XML ↔ JSON. POST /convert. 0.0005 USDC
+- https://x402-num2words.suretat.com — Number → words (13 languages). POST /convert. 0.0005 USDC
 
-### Math & Utils
-- https://x402-units.suretat.com — Unit conversion (length, mass, temp, volume…). POST /convert. 0.0005 USDC
+### Math & Utilities
+- https://x402-units.suretat.com — Unit conversion (length, mass, temp, volume). POST /convert. 0.0005 USDC
 - https://x402-timezone.suretat.com — DST-aware timezone conversion (IANA). POST /convert. 0.0005 USDC
 - https://x402-cron.suretat.com — Cron parser: next N runs, human description. POST /parse. 0.0005 USDC
 - https://x402-subnet.suretat.com — IPv4/IPv6 subnet calculator. POST /calculate. 0.0005 USDC
 - https://x402-currency.suretat.com — Currency conversion (170+ currencies, real-time). POST /convert. 0.001 USDC
 
-### Visual & Media
+### Visual & Documents
+- https://x402-pdf-generator.suretat.com — HTML/Markdown → PDF, invoice/devis. POST /generate. 0.005 USDC
 - https://x402-qrcode.suretat.com — QR code PNG/SVG. POST /generate. 0.0005 USDC
 - https://x402-barcode.suretat.com — Barcodes EAN/Code128/UPC PNG/SVG. POST /generate. 0.0005 USDC
 - https://x402-color.suretat.com — Color conversion HEX/RGB/HSL/HSV/CMYK. POST /convert. 0.0005 USDC
 - https://x402-colorpalette.suretat.com — Dominant color palette from image URL. POST /extract. 0.001 USDC
-- https://x402-pdf-generator.suretat.com — HTML/Markdown → PDF, invoice/devis. POST /generate. 0.005 USDC
-- https://x402-screenshot.suretat.com — Webpage screenshot (Playwright). POST /capture. 0.002 USDC
-- https://x402-image-resize.suretat.com — Image resize/crop/convert (Pillow). POST /resize. 0.0005 USDC
 
-### Dev Tools
-- https://x402-compress.suretat.com — gzip/zlib/brotli/zip. POST /compress, POST /decompress. 0.0005 USDC
-- https://x402-ssl.suretat.com — SSL certificate checker (expiry, chain, SANs). POST /check. 0.0005 USDC
-- https://x402-dns.suretat.com — DNS lookup A/MX/TXT/CNAME/NS/SOA/PTR. POST /lookup. 0.0005 USDC
+### Developer Tools
 - https://x402-scraper-api.suretat.com — Web scraping → Markdown or JSON. POST /scrape. 0.005 USDC
-- https://x402-ip-tools.suretat.com — IP validate/classify/PTR/ASN/bogon. POST /analyze. 0.0005 USDC
-- https://x402-phonetic.suretat.com — Soundex/Metaphone/NYSIIS/Caverphone. POST /encode. 0.0005 USDC
-- https://x402-readability.suretat.com — Readability scoring for text. POST /score. 0.0005 USDC
-- https://x402-token-counter.suretat.com — Token counting for LLM context (tiktoken). POST /count. 0.0005 USDC
-- https://x402-markdown-lint.suretat.com — Markdown lint & auto-format. POST /lint. 0.0005 USDC
+- https://x402-ssl.suretat.com — SSL certificate checker (expiry, chain, SANs). POST /check. 0.0005 USDC
+
+## Coming Soon (Oracle A1.Flex — 34 services pending deployment)
+
+- x402-screenshot — Webpage screenshot (Playwright). 0.002 USDC
+- x402-image-resize — Image resize/crop/convert. 0.0005 USDC
+- x402-invoice-gen — Invoice PDF (multi-VAT, HT/TTC). 0.005 USDC
+- x402-social-meta — OpenGraph + Twitter Card extraction. 0.0005 USDC
+- x402-pwned — HaveIBeenPwned check (k-anonymity). 0.0005 USDC
+- x402-tech-detect — Website technology stack detection. 0.002 USDC
+- x402-tva-validate — EU VAT number validation (VIES). 0.001 USDC
+- x402-totp — TOTP generate/verify (RFC 6238). 0.0005 USDC
+- x402-token-counter — LLM token counting (tiktoken). 0.0005 USDC
+- x402-html2md — HTML/URL → clean Markdown (Readability). 0.0005 USDC
+- x402-dns — DNS lookup A/MX/TXT/CNAME/NS/PTR. 0.0005 USDC
+- x402-readability — Readability scoring & extraction. 0.0005 USDC
+- x402-compress — gzip/zlib/brotli/zip compress/decompress. 0.0005 USDC
+- x402-diff — Text diff unified/HTML. 0.0005 USDC
+- x402-csv2json — CSV ↔ JSON/NDJSON conversion. 0.0005 USDC
+- x402-xml2json — XML ↔ JSON conversion. 0.0005 USDC
+- x402-yaml2json — YAML ↔ JSON conversion. 0.0005 USDC
+- x402-jsonpath — JSONPath query. 0.0005 USDC
+- x402-hmac — HMAC sign/verify (SHA-256/512). 0.0005 USDC
+- x402-encrypt — AES-256 encrypt/decrypt. 0.001 USDC
+- x402-cert-info — SSL cert details (expiry, SANs, chain). 0.001 USDC
+- x402-curl2code — curl command → code (Python/JS/Go). 0.001 USDC
+- x402-date-calc — Date arithmetic & business days. 0.0005 USDC
+- x402-sentiment — Sentiment analysis. 0.001 USDC
+- x402-lang-detect — Language detection. 0.0005 USDC
+- x402-svg2png — SVG → PNG/WebP. 0.001 USDC
+- x402-redirect-chain — HTTP redirect chain follower. 0.0005 USDC
+- x402-communes — French communes data (INSEE, pop, GPS). 0.0005 USDC
+- x402-exif — EXIF metadata extractor. 0.001 USDC
+- x402-naf — NAF/APE INSEE code lookup. 0.0005 USDC
+- x402-crypto-price — Real-time crypto prices. 0.0005 USDC
+- x402-country — Country data (ISO, capitals, currencies). 0.0005 USDC
+- x402-ip-tools — IP validate/classify/ASN/bogon. 0.0005 USDC
+- x402-phonetic — Soundex/Metaphone/NYSIIS. 0.0005 USDC
 
 ## MCP integration (for Claude / AI agents)
 
