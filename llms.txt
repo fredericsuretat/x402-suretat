@@ -117,7 +117,7 @@ The `x402-mcp` service exposes all tools as MCP tools. Add to your Claude config
   "mcpServers": {
     "x402-suretat": {
       "command": "node",
-      "args": ["services/x402-mcp/index.mjs"],
+      "args": ["services/x402-mcp/server.mjs"],
       "env": { "PRIVATE_KEY": "0x..." }
     }
   }
