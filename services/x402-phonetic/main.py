@@ -176,6 +176,11 @@ def get_stats():
     return {**stats, "uptime_seconds": int(time.time() - stats["start_time"])}
 
 
+@app.get("/health")
+async def health():
+    return {"ok": True}
+
+
 @app.middleware("http")
 async def x402_middleware(request: Request, call_next):
     if request.url.path == "/encode" and request.method == "POST":
