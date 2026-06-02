@@ -5,7 +5,7 @@
   "type": "module",
   "main": "server.mjs",
   "bin": {
-    "x402-mcp": "./server.mjs"
+    "x402-mcp": "server.mjs"
   },
   "files": [
     "server.mjs",
@@ -32,7 +32,7 @@
   "homepage": "https://frederic.suretat.com/llms.txt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fredericsuretat/x402-suretat"
+    "url": "git+https://github.com/fredericsuretat/x402-suretat.git"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
