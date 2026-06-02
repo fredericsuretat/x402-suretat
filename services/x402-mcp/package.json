@@ -1,16 +1,46 @@
 {
-  "name": "x402-mcp",
+  "name": "@fredericsuretat/x402-mcp",
   "version": "1.0.0",
-  "description": "MCP server for x402 API services (suretat.com)",
+  "description": "MCP server for x402 pay-per-use API services (suretat.com) — USDC micropayments on Base",
   "type": "module",
   "main": "server.mjs",
+  "bin": {
+    "x402-mcp": "./server.mjs"
+  },
+  "files": [
+    "server.mjs",
+    "README.md"
+  ],
   "scripts": {
     "start": "node server.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "x402",
+    "claude",
+    "ai-agent",
+    "usdc",
+    "base",
+    "micropayments",
+    "web-scraping",
+    "pdf",
+    "qrcode",
+    "model-context-protocol"
+  ],
+  "author": "Frédéric Suretat <fred.suretat@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://frederic.suretat.com/llms.txt",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fredericsuretat/x402-suretat"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "@x402/fetch": "latest",
     "@x402/evm": "latest",
     "viem": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
