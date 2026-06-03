@@ -14,6 +14,7 @@ from pydantic import BaseModel
 load_dotenv()
 
 PRICE_USDC = os.getenv("PRICE_USDC", "0.001")
+PRICE_ATOMIC = os.getenv("PRICE_ATOMIC", str(int(round(float(PRICE_USDC) * 1_000_000))))
 FACILITATOR_URL = os.getenv("FACILITATOR_URL", "https://x402.org/facilitator")
 CDP_API_KEY_ID     = os.getenv("CDP_API_KEY_ID")
 CDP_API_KEY_SECRET = os.getenv("CDP_API_KEY_SECRET")
@@ -119,7 +120,7 @@ def build_payment_requirements(resource_url: str) -> dict:
     return {
         "scheme": "exact",
         "network": "base",
-        "maxAmountRequired": PRICE_USDC,
+        "maxAmountRequired": PRICE_ATOMIC,
         "resource": resource_url,
         "description": "Validation d'adresse française — Base Adresse Nationale",
         "mimeType": "application/json",
@@ -206,7 +207,7 @@ async def x402_discovery(request: Request):
     return {
         "x402Version": 1,
         "endpoints": [
-            {"path": "/validate", "method": "POST", "price": PRICE_USDC, "network": "base",
+            {"path": "/validate", "method": "POST", "price": PRICE_USDC, "price_atomic": PRICE_ATOMIC, "network": "base",
              "asset": USDC_BASE, "payTo": wallet_address,
              "description": "Validation d'adresse française — Base Adresse Nationale"},
         ],

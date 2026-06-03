@@ -13,7 +13,8 @@ const PORT        = parseInt(process.env.PORT || '3032');
 const PAY_TO      = process.env.PAYMENT_ADDRESS || '0x6458941857a70C6cA18c440a316035A21901A12b';
 const USDC_BASE   = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
 const FACILITATOR = process.env.FACILITATOR_URL || 'https://x402.org/facilitator';
-const PRICE       = process.env.PRICE_USDC || '0.0005';
+const PRICE_DECIMAL = process.env.PRICE_USDC   || '0.0005';
+const PRICE_ATOMIC  = process.env.PRICE_ATOMIC || String(Math.round(parseFloat(PRICE_DECIMAL) * 1_000_000));
 const DATA_FILE   = process.env.DATA_FILE || '/app/data/stats.json';
 const TEST_MODE   = process.env.TEST_MODE === 'true';
 const CDP_API_KEY_ID     = process.env.CDP_API_KEY_ID;
@@ -60,7 +61,7 @@ function buildRequirements(resource, description) {
   const pathname = new URL(resource).pathname;
   const bazaar = pathname === '/validate' ? BAZAAR_VALIDATE : undefined;
   return {
-    scheme: 'exact', network: 'base', maxAmountRequired: PRICE,
+    scheme: 'exact', network: 'base', maxAmountRequired: PRICE_ATOMIC,
     resource, description, mimeType: 'application/json',
     payTo: PAY_TO, maxTimeoutSeconds: 300, asset: USDC_BASE,
     extra: { name: 'USDC', version: '2', ...(bazaar ? { bazaar } : {}) },
@@ -133,7 +134,7 @@ function x402Middleware(description) {
 
 function recordPayment(country) {
   stats.payments_total++;
-  stats.revenue_usdc = parseFloat((stats.revenue_usdc + parseFloat(PRICE)).toFixed(8));
+  stats.revenue_usdc = parseFloat((stats.revenue_usdc + parseFloat(PRICE_DECIMAL)).toFixed(8));
   stats.last_payments.unshift({ ts: new Date().toISOString(), country });
   if (stats.last_payments.length > 50) stats.last_payments.pop();
   saveStats();
@@ -254,7 +255,7 @@ app.get('/.well-known/x402.json', (req, res) => {
   res.json({
     x402Version: 1,
     endpoints: [
-      { path: '/validate', method: 'POST', price: PRICE, network: 'base', asset: USDC_BASE, payTo: PAY_TO, description: VALIDATE_DESC },
+      { path: '/validate', method: 'POST', price: PRICE_DECIMAL, price_atomic: PRICE_ATOMIC, network: 'base', asset: USDC_BASE, payTo: PAY_TO, description: VALIDATE_DESC },
     ],
     docs: `${base}/docs`,
     health: `${base}/health`,
@@ -262,13 +263,14 @@ app.get('/.well-known/x402.json', (req, res) => {
   });
 });
 
-app.get('/health', (_req, res) => res.json({ status: 'ok', version: '1.0.0', price_usdc: PRICE }));
+app.get('/health', (_req, res) => res.json({ status: 'ok', version: '1.0.0', price_usdc: PRICE_DECIMAL, price_atomic: PRICE_ATOMIC }));
 
 app.get('/stats', (_req, res) => res.json({
   payments_total: stats.payments_total,
   revenue_usdc: stats.revenue_usdc,
   last_payments: stats.last_payments.slice(0, 10),
-  price_usdc: PRICE,
+  price_usdc: PRICE_DECIMAL,
+  price_atomic: PRICE_ATOMIC,
   wallet: PAY_TO,
 }));
 
@@ -305,13 +307,13 @@ th{background:#1e293b;color:#7dd3fc}</style></head>
 <body>
 <h1>🏦 x402 IBAN Validator</h1>
 <p>Validation de numéros IBAN (checksum ISO 13616) et décomposition structurée pour FR, GB, BE.<br>
-Paiement micropayment <span class="price">${PRICE} USDC</span> par appel via le protocole <a href="https://x402.org" style="color:#38bdf8">x402</a>.</p>
+Paiement micropayment <span class="price">${PRICE_DECIMAL} USDC</span> par appel via le protocole <a href="https://x402.org" style="color:#38bdf8">x402</a>.</p>
 <h2>Wallet récepteur</h2>
 <pre>${PAY_TO}\nRéseau : Base (USDC) · Asset : ${USDC_BASE}</pre>
 <h2>Endpoints</h2>
 <table>
 <tr><th>Méthode</th><th>Route</th><th>Description</th><th>Prix</th></tr>
-<tr><td><span class="badge">POST</span></td><td>/validate</td><td>Valide un IBAN, décompose RIB si FR/GB/BE</td><td class="price">${PRICE} USDC</td></tr>
+<tr><td><span class="badge">POST</span></td><td>/validate</td><td>Valide un IBAN, décompose RIB si FR/GB/BE</td><td class="price">${PRICE_DECIMAL} USDC</td></tr>
 <tr><td><span class="badge g">GET</span></td><td>/health</td><td>Statut du service</td><td>Gratuit</td></tr>
 <tr><td><span class="badge g">GET</span></td><td>/stats</td><td>Statistiques paiements</td><td>Gratuit</td></tr>
 <tr><td><span class="badge g">GET</span></td><td>/docs</td><td>Cette page</td><td>Gratuit</td></tr>
@@ -352,7 +354,7 @@ Content-Type: application/json
 {
   "x402Version": 1,
   "accepts": [{ "scheme": "exact", "network": "base",
-    "maxAmountRequired": "${PRICE}", "payTo": "${PAY_TO}", "asset": "${USDC_BASE}" }],
+    "maxAmountRequired": "${PRICE_ATOMIC}", "payTo": "${PAY_TO}", "asset": "${USDC_BASE}" }],
   "error": "Payment required"
 }</pre>
 <h2>Pays supportés</h2>
