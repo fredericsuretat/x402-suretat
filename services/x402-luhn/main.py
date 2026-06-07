@@ -3,7 +3,7 @@ import json
 import re
 import secrets
 from fastapi import FastAPI, Request, Response
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, AliasChoices
 
 PRICE_ATOMIC = os.getenv("PRICE_ATOMIC", "500")
 PAY_TO = os.getenv("PAY_TO_ADDRESS", "0x6458941857a70C6cA18c440a316035A21901A12b")
@@ -80,7 +80,11 @@ def detect_card_type(number: str) -> str:
     return "Inconnu"
 
 class ValidateRequest(BaseModel):
-    numero: str = Field(description="Numéro à valider (espaces/tirets acceptés)")
+    model_config = {"populate_by_name": True}
+    numero: str = Field(
+        validation_alias=AliasChoices('numero', 'number'),
+        description="Numéro à valider (espaces/tirets acceptés)"
+    )
 
 class GenerateRequest(BaseModel):
     type_carte: str = Field(default="Visa", description="Type: Visa, Mastercard, AmEx")
@@ -104,11 +108,21 @@ def info():
     }
 
 @app.post("/validate")
-async def validate(req: Request, body: ValidateRequest):
+async def validate(req: Request):
     if not verify_payment(req):
         return Response(content=json.dumps({"error": "Payment required", "x402": PAYMENT_INFO}),
                         status_code=402, media_type="application/json",
                         headers={"Access-Control-Allow-Origin": "*", "Cache-Control": "no-store", "X-ACCEPTS-PAYMENT": "x402"})
+    try:
+        raw = await req.json()
+    except Exception:
+        return Response(content=json.dumps({"error": "Invalid JSON"}), status_code=422, media_type="application/json")
+    if 'number' in raw and 'numero' not in raw:
+        raw['numero'] = raw.pop('number')
+    try:
+        body = ValidateRequest(**raw)
+    except Exception as e:
+        return Response(content=json.dumps({"error": str(e)}), status_code=422, media_type="application/json")
     clean = re.sub(r"[\s\-]", "", body.numero)
     if not clean.isdigit():
         return {"error": "Le numéro doit ne contenir que des chiffres, espaces ou tirets"}

@@ -1,5 +1,7 @@
 # x402-suretat — Pay-per-use API microservices
 
+> ⛔ DECOMMISSIONED 2026-06-07 — all hosted x402 services are offline and the endpoints no longer respond. Repository archived for reference. Do not attempt to call these services. The x402 payment layer will return under a future MCP agent.
+
 > 38+ utility APIs using the x402 protocol. Pay in USDC on Base mainnet. No API keys, no signup, no rate limits. AI agents can pay autonomously.
 
 **Live catalog with real-time status:** https://frederic.suretat.com/llms.txt
@@ -22,7 +24,7 @@ Each service exposes: `POST /<endpoint>` (paid), `GET /health`, `GET /stats`, `G
 ## Deployed Services (38 live)
 
 ### French Data & Business
-- https://x402-siret.suretat.com — SIRET/SIREN company lookup (INSEE). POST /lookup. 0.002 USDC
+- https://x402-siret.suretat.com — SIRET/SIREN company lookup (INSEE). POST /siret. 0.002 USDC
 - https://x402-adresses.suretat.com — Address validation & geocoding (BAN). POST /validate. 0.001 USDC
 - https://x402-iban.suretat.com — IBAN validation & BIC lookup. POST /validate. 0.0005 USDC
 - https://x402-geocoder-fr.suretat.com — French geocoding (commune, département, GPS). POST /geocode. 0.001 USDC
@@ -33,8 +35,8 @@ Each service exposes: `POST /<endpoint>` (paid), `GET /health`, `GET /stats`, `G
 - https://x402-feries.suretat.com — French public holidays (all 11 zones). POST /feries. 0.0005 USDC
 - https://x402-fakedata-fr.suretat.com — French synthetic data (persons, companies, IBAN). POST /generate. 0.001 USDC
 - https://x402-translate-fr.suretat.com — Translation via DeepL (30 languages, 5000 chars). POST /translate. 0.001 USDC
-- https://x402-whois-fr.suretat.com — WHOIS for .fr & generic domains. POST /lookup. 0.001 USDC
-- https://x402-ipgeo.suretat.com — IP geolocation (country, city, ISP, coordinates). POST /geolocate. 0.001 USDC
+- https://x402-whois-fr.suretat.com — WHOIS for .fr & generic domains. POST /whois. 0.001 USDC
+- https://x402-ipgeo.suretat.com — IP geolocation (country, city, ISP, coordinates). POST /lookup. 0.001 USDC
 
 ### Encoding, Crypto & Security
 - https://x402-hash.suretat.com — MD5/SHA-1/SHA-256/SHA-512/SHA3/BLAKE2b. POST /hash. 0.0005 USDC
@@ -45,7 +47,7 @@ Each service exposes: `POST /<endpoint>` (paid), `GET /health`, `GET /stats`, `G
 - https://x402-luhn.suretat.com — Luhn checksum (credit cards, IMEI). POST /validate. 0.0005 USDC
 
 ### Text & Data
-- https://x402-markdown.suretat.com — Markdown → HTML (GFM). POST /render. 0.0005 USDC
+- https://x402-markdown.suretat.com — Markdown → HTML (GFM). POST /convert. 0.0005 USDC
 - https://x402-regex.suretat.com — Regex test/extract/replace/split. POST /test. 0.0005 USDC
 - https://x402-textstats.suretat.com — Readability scores (Flesch-Kincaid, Gunning Fog). POST /analyze. 0.0005 USDC
 - https://x402-jsonschema.suretat.com — JSON Schema validation (Draft-07/2020-12). POST /validate. 0.0005 USDC
@@ -65,7 +67,7 @@ Each service exposes: `POST /<endpoint>` (paid), `GET /health`, `GET /stats`, `G
 - https://x402-qrcode.suretat.com — QR code PNG/SVG. POST /generate. 0.0005 USDC
 - https://x402-barcode.suretat.com — Barcodes EAN/Code128/UPC PNG/SVG. POST /generate. 0.0005 USDC
 - https://x402-color.suretat.com — Color conversion HEX/RGB/HSL/HSV/CMYK. POST /convert. 0.0005 USDC
-- https://x402-colorpalette.suretat.com — Dominant color palette from image URL. POST /extract. 0.001 USDC
+- https://x402-colorpalette.suretat.com — Dominant color palette from image URL. POST /from-url. 0.001 USDC
 
 ### Developer Tools
 - https://x402-scraper-api.suretat.com — Web scraping → Markdown or JSON. POST /scrape. 0.005 USDC

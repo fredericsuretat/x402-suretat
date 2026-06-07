@@ -3,7 +3,7 @@ import json
 import math
 import colorsys
 from fastapi import FastAPI, Request, Response
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 PRICE_ATOMIC = os.getenv("PRICE_ATOMIC", "500")
 PAY_TO = os.getenv("PAY_TO_ADDRESS", "0x6458941857a70C6cA18c440a316035A21901A12b")
@@ -146,6 +146,15 @@ def build_all_formats(r: int, g: int, b: int) -> dict:
 
 class ColorRequest(BaseModel):
     couleur: str = Field(description="Couleur en HEX (#FF5733), RGB (255,87,51), HSL (9,100,60), ou nom (rouge, red...)")
+
+    @model_validator(mode='before')
+    @classmethod
+    def accept_english_fields(cls, data):
+        if isinstance(data, dict):
+            data = dict(data)
+            if 'color' in data and 'couleur' not in data:
+                data['couleur'] = data.pop('color')
+        return data
 
 @app.get("/")
 def info():

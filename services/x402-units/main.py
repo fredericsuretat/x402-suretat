@@ -1,7 +1,7 @@
 import os
 import json
 from fastapi import FastAPI, Request, Response
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, AliasChoices
 
 FACILITATOR_URL = os.getenv("FACILITATOR_URL", "https://api.cdp.coinbase.com/platform/v2/x402")
 PAY_TO = os.getenv("PAY_TO_ADDRESS", "0x6458941857a70C6cA18c440a316035A21901A12b")
@@ -178,10 +178,11 @@ def convert_temp(value: float, from_u: str, to_u: str) -> float:
         return (c + 273.15) * 9 / 5
 
 class ConvertRequest(BaseModel):
-    valeur: float
-    de: str = Field(description="Unité source")
-    vers: str = Field(description="Unité cible")
-    categorie: str | None = Field(default=None, description="Catégorie (optionnel, auto-détectée)")
+    model_config = {"populate_by_name": True}
+    valeur: float = Field(validation_alias=AliasChoices('valeur', 'value'))
+    de: str = Field(validation_alias=AliasChoices('de', 'from'), description="Unité source")
+    vers: str = Field(validation_alias=AliasChoices('vers', 'to'), description="Unité cible")
+    categorie: str | None = Field(default=None)
     precision: int = Field(default=6, ge=0, le=15)
 
 @app.get("/")
@@ -200,7 +201,7 @@ def info():
     }
 
 @app.post("/convert")
-async def convert(req: Request, body: ConvertRequest):
+async def convert(req: Request):
     if not verify_payment(req):
         return Response(
             content=json.dumps({"error": "Payment required", "x402": PAYMENT_INFO}),
@@ -208,6 +209,21 @@ async def convert(req: Request, body: ConvertRequest):
             media_type="application/json",
             headers={"Access-Control-Allow-Origin": "*", "Cache-Control": "no-store", "X-ACCEPTS-PAYMENT": "x402"}
         )
+    try:
+        raw = await req.json()
+    except Exception:
+        return Response(content=json.dumps({"error": "Invalid JSON"}), status_code=422, media_type="application/json")
+    # Accept both English and French field names
+    if 'value' in raw and 'valeur' not in raw:
+        raw['valeur'] = raw.pop('value')
+    if 'from' in raw and 'de' not in raw:
+        raw['de'] = raw.pop('from')
+    if 'to' in raw and 'vers' not in raw:
+        raw['vers'] = raw.pop('to')
+    try:
+        body = ConvertRequest(**raw)
+    except Exception as e:
+        return Response(content=json.dumps({"error": str(e)}), status_code=422, media_type="application/json")
 
     from_u = body.de.lower().strip()
     to_u = body.vers.lower().strip()
