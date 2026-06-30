@@ -1,0 +1,916 @@
+http:
+  routers:
+    x402-adresses:
+      rule: Host(`x402-adresses.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-adresses-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-amortization:
+      rule: Host(`x402-amortization.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-amortization-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-avatar:
+      rule: Host(`x402-avatar.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-avatar-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-barcode:
+      rule: Host(`x402-barcode.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-barcode-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-base64:
+      rule: Host(`x402-base64.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-base64-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-cert-info:
+      rule: Host(`x402-cert-info.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-cert-info-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-color:
+      rule: Host(`x402-color.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-color-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-color-convert:
+      rule: Host(`x402-color-convert.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-color-convert-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-colorpalette:
+      rule: Host(`x402-colorpalette.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-colorpalette-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-communes:
+      rule: Host(`x402-communes.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-communes-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-compress:
+      rule: Host(`x402-compress.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-compress-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-country:
+      rule: Host(`x402-country.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-country-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-cron:
+      rule: Host(`x402-cron.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-cron-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-crypto-price:
+      rule: Host(`x402-crypto-price.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-crypto-price-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-csv2json:
+      rule: Host(`x402-csv2json.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-csv2json-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-curl2code:
+      rule: Host(`x402-curl2code.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-curl2code-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-currency:
+      rule: Host(`x402-currency.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-currency-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-date-calc:
+      rule: Host(`x402-date-calc.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-date-calc-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-diff:
+      rule: Host(`x402-diff.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-diff-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-dns:
+      rule: Host(`x402-dns.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-dns-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-email-validator:
+      rule: Host(`x402-email-validator.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-email-validator-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-encrypt:
+      rule: Host(`x402-encrypt.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-encrypt-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-exif:
+      rule: Host(`x402-exif.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-exif-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-fakedata-fr:
+      rule: Host(`x402-fakedata-fr.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-fakedata-fr-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-feries:
+      rule: Host(`x402-feries.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-feries-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-geocoder-fr:
+      rule: Host(`x402-geocoder-fr.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-geocoder-fr-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-hash:
+      rule: Host(`x402-hash.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-hash-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-headers:
+      rule: Host(`x402-headers.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-headers-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-hmac:
+      rule: Host(`x402-hmac.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-hmac-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-html-sanitize:
+      rule: Host(`x402-html-sanitize.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-html-sanitize-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-html2md:
+      rule: Host(`x402-html2md.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-html2md-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-http-status:
+      rule: Host(`x402-http-status.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-http-status-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-iban:
+      rule: Host(`x402-iban.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-iban-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-image-info:
+      rule: Host(`x402-image-info.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-image-info-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-image-resize:
+      rule: Host(`x402-image-resize.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-image-resize-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-insee-fr:
+      rule: Host(`x402-insee-fr.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-insee-fr-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-invoice-gen:
+      rule: Host(`x402-invoice-gen.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-invoice-gen-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-ip-tools:
+      rule: Host(`x402-ip-tools.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-ip-tools-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-ipgeo:
+      rule: Host(`x402-ipgeo.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-ipgeo-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-jsonpath:
+      rule: Host(`x402-jsonpath.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-jsonpath-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-jsonschema:
+      rule: Host(`x402-jsonschema.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-jsonschema-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-jwt:
+      rule: Host(`x402-jwt.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-jwt-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-lang-detect:
+      rule: Host(`x402-lang-detect.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-lang-detect-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-luhn:
+      rule: Host(`x402-luhn.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-luhn-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-markdown:
+      rule: Host(`x402-markdown.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-markdown-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-markdown-lint:
+      rule: Host(`x402-markdown-lint.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-markdown-lint-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-naf:
+      rule: Host(`x402-naf.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-naf-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-num2words:
+      rule: Host(`x402-num2words.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-num2words-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-password:
+      rule: Host(`x402-password.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-password-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-pdf-generator:
+      rule: Host(`x402-pdf-generator.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-pdf-generator-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-phone-fr:
+      rule: Host(`x402-phone-fr.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-phone-fr-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-phonetic:
+      rule: Host(`x402-phonetic.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-phonetic-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-pwned:
+      rule: Host(`x402-pwned.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-pwned-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-qrcode:
+      rule: Host(`x402-qrcode.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-qrcode-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-readability:
+      rule: Host(`x402-readability.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-readability-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-redirect-chain:
+      rule: Host(`x402-redirect-chain.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-redirect-chain-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-regex:
+      rule: Host(`x402-regex.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-regex-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-rss:
+      rule: Host(`x402-rss.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-rss-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-scraper-api:
+      rule: Host(`x402-scraper-api.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-scraper-api-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-screenshot:
+      rule: Host(`x402-screenshot.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-screenshot-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-semver:
+      rule: Host(`x402-semver.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-semver-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-sentiment:
+      rule: Host(`x402-sentiment.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-sentiment-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-siret:
+      rule: Host(`x402-siret.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-siret-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-social-meta:
+      rule: Host(`x402-social-meta.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-social-meta-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-ssl:
+      rule: Host(`x402-ssl.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-ssl-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-subnet:
+      rule: Host(`x402-subnet.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-subnet-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-svg2png:
+      rule: Host(`x402-svg2png.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-svg2png-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-tech-detect:
+      rule: Host(`x402-tech-detect.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-tech-detect-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-textstats:
+      rule: Host(`x402-textstats.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-textstats-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-timezone:
+      rule: Host(`x402-timezone.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-timezone-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-token-counter:
+      rule: Host(`x402-token-counter.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-token-counter-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-totp:
+      rule: Host(`x402-totp.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-totp-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-translate-fr:
+      rule: Host(`x402-translate-fr.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-translate-fr-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-tva-validate:
+      rule: Host(`x402-tva-validate.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-tva-validate-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-units:
+      rule: Host(`x402-units.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-units-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-urlmeta:
+      rule: Host(`x402-urlmeta.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-urlmeta-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-uuid:
+      rule: Host(`x402-uuid.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-uuid-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-whois-fr:
+      rule: Host(`x402-whois-fr.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-whois-fr-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-xml2json:
+      rule: Host(`x402-xml2json.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-xml2json-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-yaml2json:
+      rule: Host(`x402-yaml2json.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-yaml2json-oracle
+      tls:
+        certResolver: letsencrypt
+    x402-vat-fr:
+      rule: Host(`x402-vat-fr.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-vat-oracle
+      tls:
+        certResolver: letsencrypt
+    l402-ban-api:
+      rule: Host(`l402-ban-api.suretat.com`)
+      entryPoints:
+      - websecure
+      service: l402-ban-api-oracle
+      tls:
+        certResolver: letsencrypt
+    l402-health-ctx:
+      rule: Host(`l402-health-ctx.suretat.com`)
+      entryPoints:
+      - websecure
+      service: l402-health-ctx-oracle
+      tls:
+        certResolver: letsencrypt
+  services:
+    x402-adresses-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3033
+    x402-amortization-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3108
+    x402-avatar-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3107
+    x402-barcode-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3050
+    x402-base64-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3065
+    x402-cert-info-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3103
+    x402-color-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3068
+    x402-color-convert-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3100
+    x402-colorpalette-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3060
+    x402-communes-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3092
+    x402-compress-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3077
+    x402-country-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3111
+    x402-cron-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3057
+    x402-crypto-price-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3109
+    x402-csv2json-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3073
+    x402-curl2code-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3110
+    x402-currency-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3051
+    x402-date-calc-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3097
+    x402-diff-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3072
+    x402-dns-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3071
+    x402-email-validator-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3036
+    x402-encrypt-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3102
+    x402-exif-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3093
+    x402-fakedata-fr-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3045
+    x402-feries-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3063
+    x402-geocoder-fr-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3035
+    x402-hash-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3046
+    x402-headers-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3096
+    x402-hmac-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3101
+    x402-html-sanitize-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3099
+    x402-html2md-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3070
+    x402-http-status-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3112
+    x402-iban-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3032
+    x402-image-info-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3113
+    x402-image-resize-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3076
+    x402-insee-fr-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3039
+    x402-invoice-gen-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3084
+    x402-ip-tools-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3083
+    x402-ipgeo-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3043
+    x402-jsonpath-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3095
+    x402-jsonschema-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3054
+    x402-jwt-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3062
+    x402-lang-detect-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3105
+    x402-luhn-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3066
+    x402-markdown-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3049
+    x402-markdown-lint-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3082
+    x402-naf-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3089
+    x402-num2words-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3044
+    x402-password-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3052
+    x402-pdf-generator-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3041
+    x402-phone-fr-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3048
+    x402-phonetic-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3080
+    x402-pwned-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3091
+    x402-qrcode-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3042
+    x402-readability-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3081
+    x402-redirect-chain-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3090
+    x402-regex-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3059
+    x402-rss-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3058
+    x402-scraper-api-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3034
+    x402-screenshot-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3075
+    x402-semver-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3098
+    x402-sentiment-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3104
+    x402-siret-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3031
+    x402-social-meta-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3086
+    x402-ssl-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3078
+    x402-subnet-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3053
+    x402-svg2png-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3106
+    x402-tech-detect-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3088
+    x402-textstats-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3055
+    x402-timezone-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3056
+    x402-token-counter-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3079
+    x402-totp-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3087
+    x402-translate-fr-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3037
+    x402-tva-validate-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3085
+    x402-units-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3064
+    x402-urlmeta-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3047
+    x402-uuid-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3067
+    x402-vat-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3061
+    x402-whois-fr-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3038
+    x402-xml2json-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3074
+    x402-yaml2json-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3094
+    l402-ban-api-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3402
+    l402-health-ctx-oracle:
+      loadBalancer:
+        servers:
+        - url: http://88.96.59.82:3403

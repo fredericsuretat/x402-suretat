@@ -1,7 +1,5 @@
 # x402-suretat — Pay-per-use API microservices
 
-> ⛔ DECOMMISSIONED 2026-06-07 — all hosted x402 services are offline and the endpoints no longer respond. Repository archived for reference. Do not attempt to call these services. The x402 payment layer will return under a future MCP agent.
-
 > 38+ utility APIs using the x402 protocol. Pay in USDC on Base mainnet. No API keys, no signup, no rate limits. AI agents can pay autonomously.
 
 **Live catalog with real-time status:** https://frederic.suretat.com/llms.txt

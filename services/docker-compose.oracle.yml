@@ -1,0 +1,1513 @@
+services:
+  adresses:
+    build: ./x402-adresses
+    container_name: x402-adresses
+    restart: unless-stopped
+    ports:
+    - 3033:3033
+    environment:
+    - PRICE_USDC=0.001
+    env_file:
+    - ./x402-adresses/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-amortization:
+    build: ./x402-amortization
+    restart: unless-stopped
+    ports:
+    - 3108:3108
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3108/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-amortization
+  x402-avatar:
+    build: ./x402-avatar
+    restart: unless-stopped
+    ports:
+    - 3107:3107
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3107/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-avatar
+  barcode:
+    build: ./x402-barcode
+    container_name: x402-barcode
+    restart: unless-stopped
+    ports:
+    - 3050:3050
+    env_file:
+    - ./x402-barcode/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-base64:
+    build: ./x402-base64
+    image: x402-base64:latest
+    container_name: x402-base64
+    restart: unless-stopped
+    ports:
+    - 3065:3065
+    env_file:
+    - ./x402-base64/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-cert-info:
+    build: ./x402-cert-info
+    restart: unless-stopped
+    ports:
+    - 3103:3103
+    environment:
+    - PRICE_ATOMIC=1000
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3103/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-cert-info
+  x402-color:
+    build: ./x402-color
+    image: x402-color:latest
+    container_name: x402-color
+    restart: unless-stopped
+    ports:
+    - 3068:3068
+    env_file:
+    - ./x402-color/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-color-convert:
+    build: ./x402-color-convert
+    restart: unless-stopped
+    ports:
+    - 3100:3100
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3100/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-color-convert
+  colorpalette:
+    build: ./x402-colorpalette
+    container_name: x402-colorpalette
+    restart: unless-stopped
+    ports:
+    - 3060:3060
+    env_file:
+    - ./x402-colorpalette/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-communes:
+    build: ./x402-communes
+    restart: unless-stopped
+    ports:
+    - 3092:3092
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3092/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-communes
+  compress:
+    build: ./x402-compress
+    container_name: x402-compress
+    restart: unless-stopped
+    ports:
+    - 3077:3077
+    env_file:
+    - ./x402-compress/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-country:
+    build: ./x402-country
+    restart: unless-stopped
+    ports:
+    - 3111:3111
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3111/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-country
+  cron:
+    build: ./x402-cron
+    container_name: x402-cron
+    restart: unless-stopped
+    ports:
+    - 3057:3057
+    env_file:
+    - ./x402-cron/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-crypto-price:
+    build: ./x402-crypto-price
+    restart: unless-stopped
+    ports:
+    - 3109:3109
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3109/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-crypto-price
+  csv2json:
+    build: ./x402-csv2json
+    container_name: x402-csv2json
+    restart: unless-stopped
+    ports:
+    - 3073:3073
+    env_file:
+    - ./x402-csv2json/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-curl2code:
+    build: ./x402-curl2code
+    restart: unless-stopped
+    ports:
+    - 3110:3110
+    environment:
+    - PRICE_ATOMIC=1000
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3110/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-curl2code
+  currency:
+    build: ./x402-currency
+    container_name: x402-currency
+    restart: unless-stopped
+    ports:
+    - 3051:3051
+    env_file:
+    - ./x402-currency/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-date-calc:
+    build: ./x402-date-calc
+    restart: unless-stopped
+    ports:
+    - 3097:3097
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3097/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-date-calc
+  diff:
+    build: ./x402-diff
+    container_name: x402-diff
+    restart: unless-stopped
+    ports:
+    - 3072:3072
+    env_file:
+    - ./x402-diff/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  dns:
+    build: ./x402-dns
+    container_name: x402-dns
+    restart: unless-stopped
+    ports:
+    - 3071:3071
+    env_file:
+    - ./x402-dns/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  email-validator:
+    build: ./x402-email-validator
+    container_name: x402-email-validator
+    restart: unless-stopped
+    ports:
+    - 3036:3036
+    env_file:
+    - ./x402-email-validator/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-encrypt:
+    build: ./x402-encrypt
+    restart: unless-stopped
+    ports:
+    - 3102:3102
+    environment:
+    - PRICE_ATOMIC=1000
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3102/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-encrypt
+  x402-exif:
+    build: ./x402-exif
+    restart: unless-stopped
+    ports:
+    - 3093:3093
+    environment:
+    - PRICE_ATOMIC=1000
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    - MAX_INPUT_MB=20
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3093/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-exif
+  fakedata:
+    build: ./x402-fakedata-fr
+    container_name: x402-fakedata-fr
+    restart: unless-stopped
+    ports:
+    - 3045:3045
+    env_file:
+    - ./x402-fakedata-fr/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-feries:
+    build: ./x402-feries
+    image: x402-feries:latest
+    container_name: x402-feries
+    restart: unless-stopped
+    ports:
+    - 3063:3063
+    env_file:
+    - ./x402-feries/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  geocoder:
+    build:
+      context: ./x402-geocoder-fr/app
+      dockerfile: Dockerfile
+    container_name: x402-geocoder-fr
+    restart: unless-stopped
+    ports:
+    - 3035:3035
+    environment:
+    - PORT=3035
+    - DATA_FILE=/app/data/stats.json
+    env_file:
+    - ./x402-geocoder-fr/.env
+    volumes:
+    - ./x402-geocoder-fr/data:/app/data
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  hash:
+    build: ./x402-hash
+    container_name: x402-hash
+    restart: unless-stopped
+    ports:
+    - 3046:3046
+    env_file:
+    - ./x402-hash/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-headers:
+    build: ./x402-headers
+    restart: unless-stopped
+    ports:
+    - 3096:3096
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3096/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-headers
+  x402-hmac:
+    build: ./x402-hmac
+    restart: unless-stopped
+    ports:
+    - 3101:3101
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3101/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-hmac
+  x402-html-sanitize:
+    build: ./x402-html-sanitize
+    restart: unless-stopped
+    ports:
+    - 3099:3099
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3099/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-html-sanitize
+  html2md:
+    build: ./x402-html2md
+    container_name: x402-html2md
+    restart: unless-stopped
+    ports:
+    - 3070:3070
+    env_file:
+    - ./x402-html2md/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-http-status:
+    build: ./x402-http-status
+    restart: unless-stopped
+    ports:
+    - 3112:3112
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3112/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-http-status
+  iban:
+    build:
+      context: ./x402-iban/app
+      dockerfile: Dockerfile
+    container_name: x402-iban
+    restart: unless-stopped
+    ports:
+    - 3032:3032
+    environment:
+    - PORT=3032
+    - DATA_FILE=/app/data/stats.json
+    env_file:
+    - ./x402-iban/.env
+    volumes:
+    - ./x402-iban/data:/app/data
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-image-info:
+    build: ./x402-image-info
+    restart: unless-stopped
+    ports:
+    - 3113:3113
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3113/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-image-info
+  image_resize:
+    build: ./x402-image-resize
+    container_name: x402-image-resize
+    restart: unless-stopped
+    ports:
+    - 3076:3076
+    env_file:
+    - ./x402-image-resize/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  insee:
+    build: ./x402-insee-fr
+    container_name: x402-insee-fr
+    restart: unless-stopped
+    ports:
+    - 3039:3039
+    env_file:
+    - ./x402-insee-fr/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-invoice-gen:
+    build: ./x402-invoice-gen
+    restart: unless-stopped
+    ports:
+    - 3084:3084
+    environment:
+    - PRICE_ATOMIC=5000
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3084/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-invoice-gen
+  x402-ip-tools:
+    build: ./x402-ip-tools
+    restart: unless-stopped
+    ports:
+    - 3083:3083
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3083/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-ip-tools
+  ipgeo:
+    build: ./x402-ipgeo
+    container_name: x402-ipgeo
+    restart: unless-stopped
+    ports:
+    - 3043:3043
+    env_file:
+    - ./x402-ipgeo/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-jsonpath:
+    build: ./x402-jsonpath
+    restart: unless-stopped
+    ports:
+    - 3095:3095
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3095/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-jsonpath
+  jsonschema:
+    build: ./x402-jsonschema
+    container_name: x402-jsonschema
+    restart: unless-stopped
+    ports:
+    - 3054:3054
+    env_file:
+    - ./x402-jsonschema/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-jwt:
+    build: ./x402-jwt
+    image: x402-jwt:latest
+    container_name: x402-jwt
+    restart: unless-stopped
+    ports:
+    - 3062:3062
+    env_file:
+    - ./x402-jwt/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-lang-detect:
+    build: ./x402-lang-detect
+    restart: unless-stopped
+    ports:
+    - 3105:3105
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3105/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-lang-detect
+  x402-luhn:
+    build: ./x402-luhn
+    image: x402-luhn:latest
+    container_name: x402-luhn
+    restart: unless-stopped
+    ports:
+    - 3066:3066
+    env_file:
+    - ./x402-luhn/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  markdown:
+    build: ./x402-markdown
+    container_name: x402-markdown
+    restart: unless-stopped
+    ports:
+    - 3049:3049
+    env_file:
+    - ./x402-markdown/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-markdown-lint:
+    build: ./x402-markdown-lint
+    restart: unless-stopped
+    ports:
+    - 3082:3082
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3082/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-markdown-lint
+  x402-naf:
+    build: ./x402-naf
+    restart: unless-stopped
+    ports:
+    - 3089:3089
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3089/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-naf
+  num2words:
+    build: ./x402-num2words
+    container_name: x402-num2words
+    restart: unless-stopped
+    ports:
+    - 3044:3044
+    env_file:
+    - ./x402-num2words/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  password:
+    build: ./x402-password
+    container_name: x402-password
+    restart: unless-stopped
+    ports:
+    - 3052:3052
+    env_file:
+    - ./x402-password/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  pdf:
+    build: ./x402-pdf-generator
+    container_name: x402-pdf-generator
+    restart: unless-stopped
+    ports:
+    - 3041:3040
+    env_file:
+    - ./x402-pdf-generator/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  phone:
+    build: ./x402-phone-fr
+    container_name: x402-phone-fr
+    restart: unless-stopped
+    ports:
+    - 3048:3048
+    env_file:
+    - ./x402-phone-fr/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-phonetic:
+    build: ./x402-phonetic
+    restart: unless-stopped
+    ports:
+    - 3080:3080
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3080/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-phonetic
+  x402-pwned:
+    build: ./x402-pwned
+    restart: unless-stopped
+    ports:
+    - 3091:3091
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    - HIBP_API_KEY=
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3091/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-pwned
+  qrcode:
+    build: ./x402-qrcode
+    container_name: x402-qrcode
+    restart: unless-stopped
+    ports:
+    - 3042:3042
+    env_file:
+    - ./x402-qrcode/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-readability:
+    build: ./x402-readability
+    restart: unless-stopped
+    ports:
+    - 3081:3081
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3081/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-readability
+  x402-redirect-chain:
+    build: ./x402-redirect-chain
+    restart: unless-stopped
+    ports:
+    - 3090:3090
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3090/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-redirect-chain
+  regex:
+    build: ./x402-regex
+    container_name: x402-regex
+    restart: unless-stopped
+    ports:
+    - 3059:3059
+    env_file:
+    - ./x402-regex/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  rss:
+    build: ./x402-rss
+    container_name: x402-rss
+    restart: unless-stopped
+    ports:
+    - 3058:3058
+    env_file:
+    - ./x402-rss/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  scraper:
+    build:
+      context: ./x402-scraper-api/app
+      dockerfile: Dockerfile
+    container_name: x402-scraper-api
+    restart: unless-stopped
+    ports:
+    - 3034:3034
+    environment:
+    - PORT=3034
+    - DATA_FILE=/app/data/stats.json
+    env_file:
+    - ./x402-scraper-api/.env
+    volumes:
+    - ./x402-scraper-api/data:/app/data
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  screenshot:
+    build: ./x402-screenshot
+    container_name: x402-screenshot
+    restart: unless-stopped
+    ports:
+    - 3075:3075
+    env_file:
+    - ./x402-screenshot/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-semver:
+    build: ./x402-semver
+    restart: unless-stopped
+    ports:
+    - 3098:3098
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3098/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-semver
+  x402-sentiment:
+    build: ./x402-sentiment
+    restart: unless-stopped
+    ports:
+    - 3104:3104
+    environment:
+    - PRICE_ATOMIC=1000
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3104/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-sentiment
+  siret:
+    build:
+      context: ./x402-siret/app
+      dockerfile: Dockerfile
+    container_name: x402-siret
+    restart: unless-stopped
+    ports:
+    - 3031:3031
+    environment:
+    - PORT=3031
+    - DATA_FILE=/app/data/stats.json
+    env_file:
+    - ./x402-siret/.env
+    volumes:
+    - ./x402-siret/data:/app/data
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-social-meta:
+    build: ./x402-social-meta
+    restart: unless-stopped
+    ports:
+    - 3086:3086
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3086/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-social-meta
+  ssl:
+    build: ./x402-ssl
+    container_name: x402-ssl
+    restart: unless-stopped
+    ports:
+    - 3078:3078
+    env_file:
+    - ./x402-ssl/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  subnet:
+    build: ./x402-subnet
+    container_name: x402-subnet
+    restart: unless-stopped
+    ports:
+    - 3053:3053
+    env_file:
+    - ./x402-subnet/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-svg2png:
+    build: ./x402-svg2png
+    restart: unless-stopped
+    ports:
+    - 3106:3106
+    environment:
+    - PRICE_ATOMIC=1000
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3106/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-svg2png
+  x402-tech-detect:
+    build: ./x402-tech-detect
+    restart: unless-stopped
+    ports:
+    - 3088:3088
+    environment:
+    - PRICE_ATOMIC=2000
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3088/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-tech-detect
+  textstats:
+    build: ./x402-textstats
+    container_name: x402-textstats
+    restart: unless-stopped
+    ports:
+    - 3055:3055
+    env_file:
+    - ./x402-textstats/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  timezone:
+    build: ./x402-timezone
+    container_name: x402-timezone
+    restart: unless-stopped
+    ports:
+    - 3056:3056
+    env_file:
+    - ./x402-timezone/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-token-counter:
+    build: ./x402-token-counter
+    restart: unless-stopped
+    ports:
+    - 3079:3079
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3079/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-token-counter
+  x402-totp:
+    build: ./x402-totp
+    restart: unless-stopped
+    ports:
+    - 3087:3087
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3087/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-totp
+  translate:
+    build: ./x402-translate-fr
+    container_name: x402-translate-fr
+    restart: unless-stopped
+    ports:
+    - 3037:3037
+    env_file:
+    - ./x402-translate-fr/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-tva-validate:
+    build: ./x402-tva-validate
+    restart: unless-stopped
+    ports:
+    - 3085:3085
+    environment:
+    - PRICE_ATOMIC=1000
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3085/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-tva-validate
+  x402-units:
+    build: ./x402-units
+    image: x402-units:latest
+    container_name: x402-units
+    restart: unless-stopped
+    ports:
+    - 3064:3064
+    env_file:
+    - ./x402-units/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  urlmeta:
+    build: ./x402-urlmeta
+    container_name: x402-urlmeta
+    restart: unless-stopped
+    ports:
+    - 3047:3047
+    env_file:
+    - ./x402-urlmeta/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-uuid:
+    build: ./x402-uuid
+    image: x402-uuid:latest
+    container_name: x402-uuid
+    restart: unless-stopped
+    ports:
+    - 3067:3067
+    env_file:
+    - ./x402-uuid/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  vat:
+    build: ./x402-vat
+    container_name: x402-vat-fr
+    restart: unless-stopped
+    ports:
+    - 3061:3061
+    env_file:
+    - ./x402-vat/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  whois:
+    build: ./x402-whois-fr
+    container_name: x402-whois-fr
+    restart: unless-stopped
+    ports:
+    - 3038:3038
+    env_file:
+    - ./x402-whois-fr/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  xml2json:
+    build: ./x402-xml2json
+    container_name: x402-xml2json
+    restart: unless-stopped
+    ports:
+    - 3074:3074
+    env_file:
+    - ./x402-xml2json/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+  x402-yaml2json:
+    build: ./x402-yaml2json
+    restart: unless-stopped
+    ports:
+    - 3094:3094
+    environment:
+    - PRICE_ATOMIC=500
+    - PAY_TO=0x6458941857a70C6cA18c440a316035A21901A12b
+    - NETWORK=base
+    - ASSET_ADDRESS=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:3094/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+    container_name: x402-yaml2json

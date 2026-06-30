@@ -1,7 +1,5 @@
 # x402-suretat
 
-> ⛔ **DECOMMISSIONED (2026-06-07).** All hosted x402 services have been shut down; the `x402-*.suretat.com` endpoints are offline. This repository is archived and kept for reference. The x402 payment layer will return under a future MCP agent. The source code below remains usable to self-host.
-
 Pay-per-use API microservices using the [x402 protocol](https://x402.org) — payments in USDC on Base mainnet. No API keys, no signup, no rate limits.
 
 - **Network**: Base mainnet
