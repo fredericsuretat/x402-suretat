@@ -539,6 +539,13 @@ http:
       service: x402-uuid-oracle
       tls:
         certResolver: letsencrypt
+    x402-vat:
+      rule: Host(`x402-vat.suretat.com`)
+      entryPoints:
+      - websecure
+      service: x402-vat-oracle
+      tls:
+        certResolver: letsencrypt
     x402-whois-fr:
       rule: Host(`x402-whois-fr.suretat.com`)
       entryPoints:
@@ -558,27 +565,6 @@ http:
       entryPoints:
       - websecure
       service: x402-yaml2json-oracle
-      tls:
-        certResolver: letsencrypt
-    x402-vat-fr:
-      rule: Host(`x402-vat-fr.suretat.com`)
-      entryPoints:
-      - websecure
-      service: x402-vat-oracle
-      tls:
-        certResolver: letsencrypt
-    l402-ban-api:
-      rule: Host(`l402-ban-api.suretat.com`)
-      entryPoints:
-      - websecure
-      service: l402-ban-api-oracle
-      tls:
-        certResolver: letsencrypt
-    l402-health-ctx:
-      rule: Host(`l402-health-ctx.suretat.com`)
-      entryPoints:
-      - websecure
-      service: l402-health-ctx-oracle
       tls:
         certResolver: letsencrypt
   services:
@@ -906,11 +892,3 @@ http:
       loadBalancer:
         servers:
         - url: http://88.96.59.82:3094
-    l402-ban-api-oracle:
-      loadBalancer:
-        servers:
-        - url: http://88.96.59.82:3402
-    l402-health-ctx-oracle:
-      loadBalancer:
-        servers:
-        - url: http://88.96.59.82:3403
