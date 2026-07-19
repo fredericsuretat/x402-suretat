@@ -12,21 +12,23 @@ NETWORK = os.getenv("NETWORK", "base")
 
 app = FastAPI(title="x402 Color Converter", version="1.0.0")
 
-PAYMENT_INFO = {
-    "x402Version": 1,
-    "accepts": [{
-        "scheme": "exact",
-        "network": NETWORK,
-        "maxAmountRequired": PRICE_ATOMIC,
-        "resource": f"http://{os.getenv('HOST', 'localhost')}:{os.getenv('PORT', '3068')}/convert",
-        "description": "Color Converter (HEX/RGB/HSL/HSV/CMYK)",
-        "mimeType": "application/json",
-        "payTo": PAY_TO,
-        "maxTimeoutSeconds": 300,
-        "asset": USDC_ADDRESS,
-        "extra": {"name": "USD Coin", "version": "2"}
-    }]
-}
+def build_payment_info(request: Request) -> dict:
+    host = request.headers.get("host", "x402-color.suretat.com")
+    return {
+        "x402Version": 1,
+        "accepts": [{
+            "scheme": "exact",
+            "network": NETWORK,
+            "maxAmountRequired": PRICE_ATOMIC,
+            "resource": f"https://{host}/convert",
+            "description": "Color Converter (HEX/RGB/HSL/HSV/CMYK)",
+            "mimeType": "application/json",
+            "payTo": PAY_TO,
+            "maxTimeoutSeconds": 300,
+            "asset": USDC_ADDRESS,
+            "extra": {"name": "USD Coin", "version": "2"}
+        }]
+    }
 
 def verify_payment(request: Request) -> bool:
     return bool(request.headers.get("X-PAYMENT") or request.headers.get("x-payment", ""))
@@ -175,7 +177,7 @@ def info():
 @app.post("/convert")
 async def convert(req: Request, body: ColorRequest):
     if not verify_payment(req):
-        return Response(content=json.dumps({"error": "Payment required", "x402": PAYMENT_INFO}),
+        return Response(content=json.dumps({"error": "Payment required", "x402": build_payment_info(req)}),
                         status_code=402, media_type="application/json",
                         headers={"Access-Control-Allow-Origin": "*", "Cache-Control": "no-store", "X-ACCEPTS-PAYMENT": "x402"})
     c = body.couleur.strip()

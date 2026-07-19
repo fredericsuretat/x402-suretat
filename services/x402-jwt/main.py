@@ -15,21 +15,23 @@ NETWORK = os.getenv("NETWORK", "base")
 
 app = FastAPI(title="x402 JWT Decoder", version="1.0.0")
 
-PAYMENT_INFO = {
-    "x402Version": 1,
-    "accepts": [{
-        "scheme": "exact",
-        "network": NETWORK,
-        "maxAmountRequired": PRICE_ATOMIC,
-        "resource": f"http://{os.getenv('HOST', 'localhost')}:{os.getenv('PORT', '3062')}/decode",
-        "description": "JWT Decoder / Validator",
-        "mimeType": "application/json",
-        "payTo": PAY_TO,
-        "maxTimeoutSeconds": 300,
-        "asset": USDC_ADDRESS,
-        "extra": {"name": "USD Coin", "version": "2"}
-    }]
-}
+def build_payment_info(request: Request) -> dict:
+    host = request.headers.get("host", "x402-jwt.suretat.com")
+    return {
+        "x402Version": 1,
+        "accepts": [{
+            "scheme": "exact",
+            "network": NETWORK,
+            "maxAmountRequired": PRICE_ATOMIC,
+            "resource": f"https://{host}/decode",
+            "description": "JWT Decoder / Validator",
+            "mimeType": "application/json",
+            "payTo": PAY_TO,
+            "maxTimeoutSeconds": 300,
+            "asset": USDC_ADDRESS,
+            "extra": {"name": "USD Coin", "version": "2"}
+        }]
+    }
 
 def verify_payment(request: Request) -> bool:
     token = request.headers.get("X-PAYMENT") or request.headers.get("x-payment", "")
@@ -118,7 +120,7 @@ def info():
 async def decode(req: Request, body: JWTRequest):
     if not verify_payment(req):
         return Response(
-            content=json.dumps({"error": "Payment required", "x402": PAYMENT_INFO}),
+            content=json.dumps({"error": "Payment required", "x402": build_payment_info(req)}),
             status_code=402,
             media_type="application/json",
             headers={"Access-Control-Allow-Origin": "*", "Cache-Control": "no-store", "X-ACCEPTS-PAYMENT": "x402"}

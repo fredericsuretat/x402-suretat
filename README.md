@@ -131,4 +131,4 @@ docker compose up -d
 Self-hosted on Base mainnet:
 - **Toshiba** (x86_64, 4 GB RAM) — primary, all services
 - **GCloud e2-micro** (1 GB) — failover for lightweight services
-- **Oracle A1.Flex** (ARM64, 4 OCPU / 24 GB) — coming soon
+- **Oracle A1.Flex** (ARM64, 4 OCPU / 24 GB) — primary, most services
